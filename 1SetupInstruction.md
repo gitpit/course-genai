@@ -42,4 +42,4 @@ Python requirements files are a great way to keep track of the Python modules. I
 C>> For cohort GenAI course setup
     1> pip install groq dotenv gradio
     2> Get Groq's API key from https://console.groq.com/keys
-    
+    3> test groq with a simple prompt
