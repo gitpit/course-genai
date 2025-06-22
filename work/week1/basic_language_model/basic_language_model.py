@@ -25,12 +25,35 @@ class BasicLanguageModel:
         test_corpus = tokens[split_index:]
         return train_corpus, test_corpus
 
+    '''
+    This training approach allows the model to:
+
+    Learn patterns in the text at different n-gram levels
+    Use these patterns later for text generation
+    Fall back to smaller n-grams when larger contexts aren't found
+    The trained model uses frequency counts to predict what token is most likely to follow a given sequence of words.
+    Given the sentence: "the weather is hot"
+
+    For unigrams (ind=1):
+        context = () (empty tuple)
+        next_token = "the", "weather", "is", "hot"
+    For bigrams (ind=2):
+        context = ("the",), ("weather",), ("is",)
+        next_token = "weather", "is", "hot"
+    For trigrams (ind=3):
+        context = ("the", "weather"), ("weather", "is")
+        next_token = "is", "hot"
+    Context is stored as a tuple to make it hashable (can be used as dictionary key)
+    The size of context depends on the n-gram size (ind - 1)
+    Context is used as a key in the self.state dictionary to store counts of next tokens  
+    --> self.state[n-1][context][next_token] = count
+    '''
     def train(self):
         tokens = self.train_data
-        for ind in range(1, self.n_params + 1):
-            counts = self.state[ind - 1]
-            for i in range(len(tokens) - ind + 1):
-                context = tuple(tokens[i:i + ind - 1])
+        for ind in range(1, self.n_params + 1):      # Loop through n-gram sizes (1 to n_params)
+            counts = self.state[ind - 1]             # Get the count dictionary for current n-gram size
+            for i in range(len(tokens) - ind + 1):        # Iterate through all possible n-gram positions
+                context = tuple(tokens[i:i + ind - 1])   #the context represents the sequence of tokens that comes before a target token in an n-gram model.
                 next_token = tokens[i + ind - 1]
                 if context not in counts:
                     counts[context] = defaultdict(int)
