@@ -50,6 +50,10 @@ def few_shot_sentiment_classification(input_text):
     return result
 
 def multi_task_few_shot(input_text, task):
+    '''
+    The `multi_task_few_shot` function performs a specified task on the input text using a few-shot prompt. It takes 
+    input as `input_text` and `task
+    '''
     few_shot_prompt = PromptTemplate(
         input_variables=["input_text", "task"],
         template="""

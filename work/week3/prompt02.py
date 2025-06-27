@@ -1,5 +1,6 @@
 '''
-prompt02.py
+#prompt02.py
+# Chain of Thought and Logical Reasoning with LangChain and Groq
 # This code demonstrates how to use LangChain with Groq's LLM to solve mathematical problems
 # and logical reasoning puzzles.
 # It includes a standard prompt for direct answers, a chain of thought (cot) prompt for step-by-step reasoning,
@@ -29,9 +30,14 @@ cot_prompt = PromptTemplate(
 standard_chain = standard_prompt | llm #what is this pipe operator?
 # The pipe operator (`|`) is used to create a chain of operations in LangChain,
 # where the output of one operation (in this case, the prompt) is passed as input
-cot_chain = cot_prompt | llm
+standard_prompt_response = standard_chain.invoke("How the F16 fighter jet works?").content
+print(standard_prompt_response)
 
+cot_chain = cot_prompt | llm
 question = "If a train travels 120 km in 2 hours, what is its average speed in km/h?"
+
+cot_chain_response = cot_chain.invoke(question).content
+print(cot_chain_response)
 
 # standard_response = standard_chain.invoke(question).content
 # cot_response = cot_chain.invoke(question).content

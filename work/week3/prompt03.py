@@ -1,5 +1,6 @@
 '''
 prompt03.py
+# generate multiple reasoning paths
 # This code demonstrates how to use LangChain with Groq's LLM to generate multiple reasoning paths for a problem,
 # aggregate the results, and perform a self-consistency check.
 # 1. Generate multiple reasoning paths for the problem.
