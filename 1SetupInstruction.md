@@ -48,7 +48,9 @@ c> Python code debugging using pdb
     1> install pdbpp
         pip insall pdbpp
     2> setup .pdbrc.py file to keep basic configuration on load
-    3> Some useful commands for debug
+    3> start debug 
+    python -m pdb transformer_scratch.py
+    4> Some useful commands for debug
         Some useful ones to remember are:
             b: set a breakpoint
             c: continue debugging until you hit a breakpoint

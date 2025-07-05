@@ -1,3 +1,11 @@
+'''
+#rag01.py This code demonstrates how to use the GloVe model from Gensim to perform word vector operations
+# with a dataset of input-output pairs. It includes a custom dataset class, a simple neural
+# network model, and a trainer class for managing the training process. The code also includes examples of how to 
+# perform word vector operations such as cosine similarity and analogy tasks using the GloVe model.
+
+'''
+
 import numpy as np
 import gensim.downloader as api
 #gensim is a library for topic modeling and document similarity; 
@@ -33,6 +41,7 @@ v_france = model["france"]
 v_india = model["india"]
 
 new_word2 = model.most_similar(v_paris - v_france +v_india, topn=1)
+
 
 # what is chroma db which is like gensim?
 # ChromaDB is a vector database designed for efficient storage and retrieval of high-dimensional vectors, often used in machine learning applications.

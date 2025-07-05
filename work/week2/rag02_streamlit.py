@@ -1,3 +1,9 @@
+'''
+rag02_streamlit.py This code implements a book recommendation system using Streamlit and Sentence Transformers.
+ It allows users to select a book from a predefined list and provides recommendations based on cosine similarity of text embeddings.
+ 
+'''
+
 import streamlit as st
 import numpy as np
 from sentence_transformers import SentenceTransformer

@@ -1,3 +1,10 @@
+'''
+rag02.py
+This code implements a book recommendation system using Sentence Transformers and cosine similarity.
+It allows users to select a book from a predefined list and provides recommendations based on the semantic similarity of the book's content.
+
+'''
+
 import numpy as np
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
