@@ -1,5 +1,6 @@
 '''
-first chatbot app
+A simple chatbot app using Groq API and Gradio.
+Works with Python 3.11.9+
 '''
 from dotenv import load_dotenv
 import gradio  as gr
@@ -27,4 +28,4 @@ def chat(message, history):
             response += chunk.choices[0].delta.content
             yield response
 
-gr.ChatInterface(fn=chat,type="messages").launch()
+gr.ChatInterface(fn=chat).launch()

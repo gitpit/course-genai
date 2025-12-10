@@ -146,7 +146,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
+.venv*
+.venv*/
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -203,3 +204,10 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+#+ more that I dont want
+.7z
+.zip
+_orig/
+orig/
+1bkup/
+bkup/

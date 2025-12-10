@@ -1,2 +1,3 @@
 # course-genai
-https://ajayshenoy.github.io/setup.html
+All python files work with Python version 3.11.9
+
