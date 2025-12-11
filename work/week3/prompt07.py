@@ -4,14 +4,20 @@ This code implements a self-discovery agent that uses Groq's LLM to solve proble
 structuring, and reasoning with various reasoning modules. It builds a state graph to manage the flow of 
 reasoning and outputs the results step by step.
 
-
+**Important Notes:
+ - It works with venv3.11
+ - Not working -- from langchain.prompts import PromptTemplate; use below
+    - from langchain_core.prompts import PromptTemplate which works
+ - Not working -- import hub from langchain; use below
+    - from langchain_classic import hub  #is for backward compatibility with langchain v1
+    https://docs.langchain.com/oss/python/migrate/langchain-v1
 '''
 
 import os
 from typing import List, Optional #is for typing hints
 from typing_extensions import TypedDict #is for type checking 
-from langchain import hub # is for loading prompts from the hub and hub is a module 
-                            #that provides access to pre-built prompts and tools
+#from langchain import hub # is for loading prompts from the hub and hub is a module #that provides access to pre-built prompts and tools
+from langchain_classic import hub  #is for backward compatibility with langchain v1
 from langchain_core.output_parsers import StrOutputParser
 from langchain_groq import ChatGroq
 from langgraph.graph import END, START, StateGraph
@@ -157,3 +163,4 @@ How many coins will be in circulation at the end of month 15?"""
     agent = SelfDiscoveryAgent()
     print(agent.model.invoke(task_example_1))
     agent.solve(task_example_1, reasoning_modules)
+    print("---------------------It Works!!-----------------------------")

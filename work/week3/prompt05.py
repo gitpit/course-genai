@@ -5,6 +5,15 @@
 # The code uses the `ChatGroq` class to interact with the Groq model and the `PromptTemplate` class to create prompts for each processing step.
 # The `process` method of the `TextProcessor` class takes a text input, invokes the state graph, and prints the results of classification, entity extraction, and summarization.
 # It also includes a sample text to demonstrate the functionality.
+
+**Important Notes:
+ - It works with venv3.11
+ - Not working -- from langchain.prompts import PromptTemplate; use below
+    - Use this -- from langchain_core.prompts import PromptTemplate which works
+ - Not working -- from langchain.schema import HumanMessage
+    - Use this -- from langchain.messages import HumanMessage which works
+    https://docs.langchain.com/oss/python/migrate/langchain-v1
+
 '''
 
 
@@ -12,8 +21,9 @@ import os
 import gradio as gr
 from typing import TypedDict, List
 from langgraph.graph import StateGraph, END
-from langchain.prompts import PromptTemplate
-from langchain.schema import HumanMessage
+from langchain_core.prompts import PromptTemplate
+#from langchain.schema import HumanMessage
+from langchain.messages import HumanMessage
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 
@@ -87,3 +97,5 @@ if __name__ == "__main__":
     WHO Director-General emphasized that healthcare systems need to become more resilient and adaptable to climate-related challenges, recommending that countries allocate at least 5% of their health budgets to climate adaptation measures by 2030.
     """
     result = processor.process(sample_text)
+
+    print("\nIt works!!")

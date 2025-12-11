@@ -6,14 +6,25 @@ prompt01.py
 # The `multi_task_few_shot` function performs a specified task on the input text, such as language detection or sentiment analysis.
 # The `in_context_learning` function allows for in-context learning by providing a task description, examples, and input text.
 # The code uses the `PromptTemplate` class to create prompts for each task and invokes the ChatGroq model to get the results.
-'''
+
+**Important Notes:
+ - It works with venv3.11
+ - Not working -- from langchain.prompts import PromptTemplate; use below
+ - from langchain_core.prompts import PromptTemplate which works
+ '''
 
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq # ChatGroq is a class from the LangChain library that interfaces with Groq's LLMs, allowing users to generate text based on prompts.
-from langchain.prompts import PromptTemplate # PromptTemplate is a class from the LangChain library that helps in creating structured prompts for language models.
+#from langchain.prompts import PromptTemplate # PromptTemplate is a class from the LangChain library that helps in creating structured prompts for language models.
+from langchain_core.prompts import PromptTemplate
 
 load_dotenv()
 
+'''
+Below Creates a client connection to Groq's cloud API
+Specifies which model you want to use on Groq's servers
+Sets the temperature parameter for generation
+'''
 llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
 
 def few_shot_sentiment_classification(input_text):
@@ -114,3 +125,5 @@ multi_task_few_shot_input = "Bonjour, comment allez-vous?"
 multi_task_few_shot_task = "language"
 result = multi_task_few_shot(multi_task_few_shot_input, multi_task_few_shot_task)
 print(result)
+
+print("It works!!")

@@ -2,6 +2,12 @@
 # prompt06.py prompt routing with langgraph
 # This method creates a state graph for processing text, with nodes for classification, entity extraction, and summarization.
 
+**Important Notes:
+ - It works with venv3.11
+ - Not working -- from langchain.prompts import PromptTemplate; use below
+ - from langchain_core.prompts import PromptTemplate which works
+ - not working with llama model - "llama3-70b-8192" which is deprecated
+https://docs.langchain.com/oss/python/migrate/langchain-v1
 '''
 
 from typing import Literal, Optional, TypedDict, Dict, List
@@ -49,7 +55,7 @@ class State(TypedDict):
 
 class QueryRouter:
 
-    def __init__(self, model_name="llama3-70b-8192"):
+    def __init__(self, model_name="llama-3.3-70b-versatile"):
         self.llm = ChatGroq(model_name=model_name)
     
         self.classification_prompt = ChatPromptTemplate.from_messages([
@@ -202,6 +208,9 @@ class QueryRouter:
         }
 
 
-if __name__ == "__main__":
-    router = QueryRouter(model_name="llama3-70b-8192")
+if __name__ == "__main__":    
+    #router = QueryRouter(model_name="llama3-70b-8192")
+    router = QueryRouter(model_name="llama-3.3-70b-versatile")
     response = router.process_query("What is the theory of relativity")
+    print("Query:", response["query"])
+    print("It works!!")

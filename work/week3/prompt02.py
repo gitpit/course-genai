@@ -5,13 +5,19 @@
 # and logical reasoning puzzles.
 # It includes a standard prompt for direct answers, a chain of thought (cot) prompt for step-by-step reasoning,
 # and an advanced cot prompt for complex calculations.
+
+**Important Notes:
+ - It works with venv3.11
+ - Not working -- from langchain.prompts import PromptTemplate; use below
+ - from langchain_core.prompts import PromptTemplate which works
+ https://docs.langchain.com/oss/python/migrate/langchain-v1
 '''
 # cot = chain of thought
 
 import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 
 load_dotenv()
 llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0) 
@@ -101,3 +107,5 @@ Scenario:
 {scenario}
 
 Analysis:""")
+
+print("It works!!")

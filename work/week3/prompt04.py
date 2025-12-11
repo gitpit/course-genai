@@ -8,6 +8,12 @@ day#2
 # and the `compute_consistency` method evaluates the similarity of multiple responses to the same prompt
 # The `compare_prompts` method compares multiple prompts against expected content and returns a DataFrame
 # with the computed metrics for each prompt. 
+
+**Important Notes:
+ - It works with venv3.11
+ - Not working -- from langchain.prompts import PromptTemplate; use below
+ - from langchain_core.prompts import PromptTemplate which works
+ https://docs.langchain.com/oss/python/migrate/langchain-v1
 '''
 
 import numpy as np
@@ -90,3 +96,5 @@ if __name__ == "__main__":
     expected_content = "The main types of machine learning are supervised learning, unsupervised learning, and reinforcement learning."
     compare_prompt_results = eval.compare_prompts(prompts, expected_content)
     #print(compare_prompt_results)
+
+print("It works!!")

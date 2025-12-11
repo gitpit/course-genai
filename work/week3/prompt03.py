@@ -6,12 +6,18 @@ prompt03.py
 # 1. Generate multiple reasoning paths for the problem.
 # 2. Aggregate the results from these paths.
 # 3. Perform a self-consistency check on the aggregated result.
+
+**Important Notes:
+ - It works with venv3.11
+ - Not working -- from langchain.prompts import PromptTemplate; use below
+ - from langchain_core.prompts import PromptTemplate which works
+ https://docs.langchain.com/oss/python/migrate/langchain-v1
 '''
 # Self consistency
 
 import os
 from langchain_groq import ChatGroq
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv
 import random
 from collections import Counter
@@ -132,3 +138,5 @@ for problem in problems:
     print("Aggregated Result:\n", result)
     print("\nConsistency Evaluation:\n", evaluation)
     print("\n" + "-"*50 + "\n")
+
+print("It works!!")
