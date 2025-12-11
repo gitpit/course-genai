@@ -1,5 +1,5 @@
 About finetuning01.py
-==================
+====================
 Overview
 This program demonstrates how to fine-tune a sentence embedding model (specifically, Microsoft’s MPNet base) using triplet data from the AllNLI dataset. The goal is to improve the model’s ability to distinguish between similar and dissimilar sentence pairs by training it with anchor, positive, and negative examples.
 
