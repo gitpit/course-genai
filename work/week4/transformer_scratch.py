@@ -7,6 +7,10 @@
 # evaluating it, and generating text samples. The model is trained on a text file, 
 # and it can generate text based on a given context. # The code is structured to allow
 # for easy configuration and training of the model.
+**Important Notes:
+ - It works with venv3.11
+ - Requires tiktoken package -- pip install tiktoken
+ - CPU intensive -- best to run on GPU; CPU > 32GB may work ok for small data
 '''
 import os
 import torch
@@ -362,3 +366,7 @@ if __name__ == "__main__":
     trainer = GPTTrainer(config)
     trainer.load_data()
     train_losses, val_losses, tokens_seen = trainer.train_model(num_epochs=50)
+    print("Training complete.")
+    print("Generating sample text:")
+    trainer.generate_and_print_sample("In a distant future,")
+    print(" It works!!")

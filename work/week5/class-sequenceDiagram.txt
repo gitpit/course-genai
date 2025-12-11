@@ -1,0 +1,104 @@
+About finetuning01.py
+==================
+Overview
+This program demonstrates how to fine-tune a sentence embedding model (specifically, Microsoft’s MPNet base) using triplet data from the AllNLI dataset. The goal is to improve the model’s ability to distinguish between similar and dissimilar sentence pairs by training it with anchor, positive, and negative examples.
+
+Step-by-Step Flow
+1> Initialization (FineTuneEmbeddingModel)
+
+The main class is instantiated, which triggers a series of setup methods:
+Model Setup: Loads a pre-trained SentenceTransformer model.
+Dataset Loading: Loads the AllNLI triplet dataset using HuggingFace’s datasets library.
+Dataset Preparation: Selects subsets for training, testing, and evaluation.
+Evaluator Setup: Prepares a TripletEvaluator to measure model performance on triplet data.
+Loss Function: Uses MultipleNegativesRankingLoss to optimize the model for distinguishing positive from negative samples.
+Training Arguments: Configures training parameters (epochs, batch size, evaluation strategy, etc.).
+Trainer Setup: Initializes the SentenceTransformerTrainer with all the above components.
+
+2> Pre-Training Evaluation
+The model’s accuracy is measured on the test dataset using cosine similarity:
+Embeddings are generated for anchors, positives, and negatives.
+Cosine distances are computed between anchor-positive and anchor-negative pairs.
+Accuracy is calculated as the proportion of cases where the anchor is closer to the positive than the negative.
+
+3> Model Training
+The model is fine-tuned using the prepared trainer and training dataset.
+
+4> Post-Training Evaluation
+The accuracy evaluation is repeated on the test dataset to measure improvement after fine-tuning.
+
+Key Concepts
+------------
+Triplet Data: Each sample consists of an anchor sentence, a positive sentence (similar to the anchor), and a negative sentence (dissimilar to the anchor).
+Sentence Embeddings: The model converts sentences into high-dimensional vectors that capture semantic meaning.
+Cosine Similarity: Used to measure how close two sentence embeddings are; lower distance means higher similarity.
+Fine-Tuning: Adjusts the model’s weights to better distinguish between similar and dissimilar sentences based on the triplet loss.
+Why This Matters
+Fine-tuning embedding models on domain-specific or task-specific data can significantly improve their performance for downstream tasks like semantic search, clustering, or classification. This example provides a template for such fine-tuning using popular libraries and best practices.
+
+In summary:
+The program loads a pre-trained model, prepares triplet data, evaluates the model’s baseline accuracy, fine-tunes the model, and then evaluates the accuracy again to show the effect of training.
+============================================================================
+
++------------------------------------------------------+
+|              FineTuneEmbeddingModel                  |
++------------------------------------------------------+
+| - model: SentenceTransformer                         |
+| - dataset: Dataset                                  |
+| - train_dataset: Dataset                            |
+| - test_dataset: Dataset                             |
+| - eval_dataset: Dataset                             |
+| - dev_evaluator: TripletEvaluator                   |
+| - loss: MultipleNegativesRankingLoss                |
+| - args: SentenceTransformerTrainingArguments         |
+| - trainer: SentenceTransformerTrainer               |
++------------------------------------------------------+
+| + __init__()                                        |
+| + setup_model()                                     |
+| + load_dataset()                                    |
+| + create_train_dataset()                            |
+| + create_test_dataset()                             |
+| + create_eval_dataset()                             |
+| + setup_dev_evaluator()                             |
+| + setup_loss()                                      |
+| + setup_training_args()                             |
+| + setup_trainer()                                   |
+| + evaluate_cosine_accuracy(dataset)                 |
+| + train_model()                                     |
++------------------------------------------------------+
+
+
+
+Main
+ |
+ |---> FineTuneEmbeddingModel()
+ |        |
+ |        |---> setup_model()
+ |        |---> load_dataset()
+ |        |---> create_train_dataset()
+ |        |---> create_test_dataset()
+ |        |---> create_eval_dataset()
+ |        |---> setup_dev_evaluator()
+ |        |---> setup_loss()
+ |        |---> setup_training_args()
+ |        |---> setup_trainer()
+ |
+ |---> evaluate_cosine_accuracy(test_dataset)
+ |        |
+ |        |---> model.encode(anchors)
+ |        |---> model.encode(positives)
+ |        |---> model.encode(negatives)
+ |        |---> paired_cosine_distances()
+ |        |---> Calculate accuracy
+ |
+ |---> train_model()
+ |        |
+ |        |---> trainer.train()
+ |
+ |---> evaluate_cosine_accuracy(test_dataset)
+ |        |
+ |        |---> model.encode(anchors)
+ |        |---> model.encode(positives)
+ |        |---> model.encode(negatives)
+ |        |---> paired_cosine_distances()
+ |        |---> Calculate accuracy

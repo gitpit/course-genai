@@ -1,4 +1,4 @@
-1> Class diagram
+1> Class diagram for transformer_scratch
 
 +-------------------+
 |   GPTDataset      |
@@ -156,3 +156,50 @@ User
 |         |               |--> print()
 |
 |   [returns train_losses, val_losses, tokens_seen]
+
+
+## sequence diagram
+
+User
+ |
+ | 1. trainer = Trainer(config)
+ v
++-------------------+
+|     Trainer       |
++-------------------+
+|  __init__()       |
+|   |--> Model.__init__()         (creates neural network)
+|   |--> sets loss_fn, optimizer
+|
+ | 2. trainer._setup()
+ |   |--> model.to(device)
+ |
+ | 3. trainer.load_data()
+ |   |--> [generates x_data, y_data]
+ |   |--> SimpleDataset.__init__()
+ |   |--> DataLoader(SimpleDataset)
+ |
+ | 4. trainer.train_model()
+ |   |--> for each epoch:
+ |   |      for each batch in train_loader:
+ |   |         |--> calc_loss_batch(inputs, targets)
+ |   |         |     |--> model(inputs)
+ |   |         |         |--> Model.forward()
+ |   |         |             |--> layer1, activation, layer2
+ |   |         |     |--> loss_fn(outputs, targets)
+ |   |         |--> optimizer.zero_grad()
+ |   |         |--> loss.backward()
+ |   |         |--> optimizer.step()
+ |   |--> print loss every 100 epochs
+ |
+ | 5. trainer.predict(test_value)
+ |   |--> model.eval()
+ |   |--> model(test_input)
+ |   |    |--> Model.forward()
+ |   |--> return prediction
+ |
+ | 6. [Visualization]
+ |   |--> Generate x_vals, y_true
+ |   |--> model(x_vals)
+ |   |    |--> Model.forward()
+ |   |--> Plot with matplotlib
