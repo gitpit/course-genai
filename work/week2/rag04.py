@@ -7,25 +7,37 @@
 # The `np.argsort` function sorts the indices of the similarity scores in descending order, and `[1:3]` selects the top 2 most similar books (excluding the book itself).
 # The application uses Groq's ChatGroq model for generating responses based on the document embeddings.
 # The application uses Chroma as the vector database for storing and retrieving document embeddings.
+
+
+
+**Important Notes:
+ - It works with venv3.11
+ - install pypdf <pip install pypdf>; 
+ - use langchain_classic for ConversationBufferMemory and ConversationalRetrievalChain otherwise it gives error
+ https://docs.langchain.com/oss/python/migrate/langchain-v1
+ 
 '''
 import os
 from dotenv import load_dotenv
-import gradio as gr #https://www.gradio.app/playground
-from langchain.document_loaders import PyPDFLoader, DirectoryLoader # Document loader for PDF files
-# PyPDFLoader is used to load PDF files, and DirectoryLoader can be used to load multiple PDF files from a directory.
-# These loaders read the content of the PDF files and convert them into LangChain Document objects, which can then be processed further in the application.
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain_groq import ChatGroq # LLM for generating responses based on document embeddings
-from langchain_chroma import Chroma # vector database for storing and retrieving document embeddings
-from langchain.memory import ConversationBufferMemory # memory for maintaining conversation history
-from langchain.chains import ConversationalRetrievalChain # chain for managing conversational interactions with the document embeddings
+import gradio as gr
+import pypdf
+from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
+#from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter  # ✅
+#from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_groq import ChatGroq
+from langchain_chroma import Chroma
+#from langchain.memory import ConversationBufferMemory
+from langchain_classic.memory import ConversationBufferMemory
+#from langchain.chains import ConversationalRetrievalChain
+from langchain_classic.chains import ConversationalRetrievalChain
 
 load_dotenv()
 
 class PDFChatApp:
     def __init__(self,  db_name="pdf_db"):
-        self.model = "llama-3.3-70b-versatile"  #this model should exactly match with the one in the Groq API; Groq api is free for a lmit;
+        self.model = "llama-3.3-70b-versatile"
         self.db_name = db_name
         
         self.documents = []
@@ -93,9 +105,7 @@ class PDFChatApp:
             "memory": memory,
         }
             
-        return ConversationalRetrievalChain.from_llm(**chain_args) # what is ** here?
-        # The ** operator is used to unpack the dictionary `chain_args` into keyword arguments for the `from_llm` method.
-        # This allows you to pass the dictionary keys as named arguments to the method, which is useful for cleaner code and flexibility in passing parameters.
+        return ConversationalRetrievalChain.from_llm(**chain_args)
     
     def query(self, question):
         if not self.conversation_chain:
@@ -134,3 +144,6 @@ class PDFChatApp:
 if __name__ == "__main__":
     app = PDFChatApp()
     app.launch_app()
+
+print("All Works!! with venv3.11 and requirement")
+

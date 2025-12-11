@@ -1,7 +1,14 @@
 '''
 rag02_streamlit.py This code implements a book recommendation system using Streamlit and Sentence Transformers.
  It allows users to select a book from a predefined list and provides recommendations based on cosine similarity of text embeddings.
- 
+
+Streamlit and Gradio are similar—they both let you build interactive web apps in Python with minimal code.
+  **Streamlit: Great for dashboards, data exploration, and custom layouts. You use widgets like sliders, buttons, and text boxes.
+  **Gradio: Focused on quick demos for machine learning models, with built-in interfaces for text, images, audio, etc.
+
+**Important Notes:
+ - It works with v.env3.11
+ - run it as streamlit run .\work\week2\rag02_streamlit.py
 '''
 
 import streamlit as st
@@ -61,7 +68,9 @@ books = [
 
 @st.cache_resource
 def load_model():
-    return SentenceTransformer("all-MiniLM-L6-v2")
+    return SentenceTransformer("all-MiniLM-L6-v2") # this model is trained with a dataset from various sources including Wikipedia, web texts, 
+                            #and books and is optimized for generating sentence embeddings that capture semantic meaning. I verify that this statemment is correct.
+
 
 @st.cache_data
 def get_embeddings(texts):
@@ -90,3 +99,5 @@ if button_clicked is not None:
     for i, rec in enumerate(recommendations):
         st.write(f"{i+1}. **{rec['title']}**")
         st.write(f"   {rec['content']}")
+
+print("!It works!!")

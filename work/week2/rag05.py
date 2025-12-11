@@ -5,6 +5,11 @@ rag05.py
 # The script also includes comments explaining the purpose of each section and the functionality of various methods and classes used.
 What is the checksum for this source file?
 # The checksum for this source file is: 0c1f3b8d5e2f4a6c9b7e3c8d2f1a5b6c
+
+**Important Notes:
+ - It works with venv3.11 (that is python 3.11.9)
+
+
 '''
 import numpy as np
 from transformers import AutoModel, AutoTokenizer #What is this?
@@ -134,6 +139,6 @@ if __name__ == "__main__":
     plt.ylabel("Component 2")
     plt.grid(True)
     plt.show()
-
+print("It works!!")
     
     

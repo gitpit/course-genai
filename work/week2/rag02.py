@@ -3,6 +3,9 @@ rag02.py
 This code implements a book recommendation system using Sentence Transformers and cosine similarity.
 It allows users to select a book from a predefined list and provides recommendations based on the semantic similarity of the book's content.
 
+**Important Notes:
+ - It works with venv3.11 (that is python 3.11.9)
+
 '''
 
 import numpy as np
@@ -91,3 +94,7 @@ similar_indices = np.argsort(similarities)[::-1][1:3] #what is this line?
 # The resulting `similar_indices` array contains the indices of the two books that are most similar to the book at `book_id`.
 # These indices can be used to retrieve the titles or contents of the most similar books for further analysis or recommendations.
 recommendations = [books[idx] for idx in similar_indices]
+print(f'Because you read "{books[book_id]["title"]}", you might also like:')
+print(recommendations)
+
+print("!It works!!")

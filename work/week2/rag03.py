@@ -8,12 +8,18 @@ rag03.py
 #         )
 #         return text_splitter.split_documents(self.documents)
 #         # The `split_documents` method uses the RecursiveCharacterTextSplitter to split the loaded documents into smaller chunks.    
+
+
+**Important Notes:
+ - It works with venv3.11
+
 '''
 
 import textwrap
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import Chroma
+#from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter  # ✅
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_chroma import Chroma
 import os
 
 class VisualizeChunking:
@@ -33,8 +39,7 @@ class VisualizeChunking:
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=self.chunk_size,
             chunk_overlap=self.chunk_overlap,
-        )
-    
+        )    
         return text_splitter.split_text(self.text)
     
     def get_embedding_model(self):
@@ -89,3 +94,5 @@ if __name__ == "__main__":
     query2 = "Tell me about modern space exploration companies"
     result2 = processor.search(query2)
     print(result2)
+
+print("It works!!")
